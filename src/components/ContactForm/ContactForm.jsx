@@ -6,7 +6,7 @@ import * as Yup from "yup";
 
 import css from "./ContactForm.module.css";
 import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contactsSlice";
+import { addContact } from "../../redux/contactsOps";
 
 let formSchema = Yup.object({
   name: Yup.string().min(3, "Too short!").max(50, "Too long!").required(),
@@ -20,7 +20,7 @@ const ContactForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values, actions) => {
-    dispatch(addContact(values.name, values.number));
+    dispatch(addContact({ name: values.name, number: values.number }));
     actions.resetForm();
   };
 
