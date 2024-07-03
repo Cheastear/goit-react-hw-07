@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 
 import Contact from "./Contact/Contact";
@@ -25,11 +24,6 @@ const ContactList = () => {
       })}
     </ul>
   );
-};
-
-ContactList.propTypes = {
-  contactArr: PropTypes.array,
-  onDelete: PropTypes.func,
 };
 
 export default ContactList;

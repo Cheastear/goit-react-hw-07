@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { changeFilter, selectNameFilter } from "../../redux/filtersSlice";
 
@@ -16,11 +15,6 @@ const SearchBox = () => {
       <input value={filter} onChange={handleOnChange} />
     </>
   );
-};
-
-SearchBox.propTypes = {
-  filter: PropTypes.string,
-  setFilter: PropTypes.func,
 };
 
 export default SearchBox;

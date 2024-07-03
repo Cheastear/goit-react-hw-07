@@ -1,20 +1,24 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit";
 
-import { initialState } from "./constants";
 import { fetchContacts, addContact, deleteContact } from "./contactsOps";
 
 const contactsSlice = createSlice({
   name: "contacts",
-  initialState: initialState.contacts,
+  initialState: {
+    items: [],
+    loading: false,
+    error: null,
+  },
   extraReducers: (builder) =>
     builder
       .addCase(fetchContacts.pending, (state) => {
         state.loading = true;
+        console.log(state.contacts);
       })
       .addCase(fetchContacts.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.contacts = action.payload;
+        state.items = action.payload;
       })
       .addCase(fetchContacts.rejected, (state, action) => {
         state.loading = false;
@@ -27,7 +31,7 @@ const contactsSlice = createSlice({
       .addCase(addContact.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.contacts.push(action.payload);
+        state.items.push(action.payload);
       })
       .addCase(addContact.rejected, (state, action) => {
         state.loading = false;
@@ -40,7 +44,7 @@ const contactsSlice = createSlice({
       .addCase(deleteContact.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.contacts = state.contacts.filter(
+        state.items = state.items.filter(
           (contact) => contact.id !== action.payload
         );
       })
@@ -51,12 +55,11 @@ const contactsSlice = createSlice({
 });
 
 export const selectContacts = (state) => state.contacts.items;
-export const selectFilter = (state) => state.filters.filter;
+export const selectFilter = (state) => state.filters.name;
 
 export const selectFilteredContacts = createSelector(
   [selectContacts, selectFilter],
   (contacts, filter) => {
-    console.log(contacts);
     return contacts.filter((contact) =>
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );

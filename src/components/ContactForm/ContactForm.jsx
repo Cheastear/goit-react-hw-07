@@ -10,7 +10,7 @@ import { addContact } from "../../redux/contactsOps";
 
 let formSchema = Yup.object({
   name: Yup.string().min(3, "Too short!").max(50, "Too long!").required(),
-  number: Yup.string().length(9, "Length must be 9").required(),
+  number: Yup.string().length(12, "Length must be 12").required(),
 });
 
 const ContactForm = () => {
